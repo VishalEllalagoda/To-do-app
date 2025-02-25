@@ -1,5 +1,5 @@
 # Use Node.js as the base image
-FROM node:18
+FROM node:22
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy package.json and install dependencies
 COPY package.json package-lock.json ./
 RUN npm install
+RUN chmod -R 777 node_modules
 
 # Copy all frontend files into the container
 COPY . .
