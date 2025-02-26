@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-// const API_URL = "http://localhost:8000/tasks/";
-const API_URL = process.env.REACT_APP_API_URL + "/tasks/";
-
+const API_URL = "https://backend:8000/tasks/";
 
 function App() {
     const [tasks, setTasks] = useState([]);
@@ -19,9 +17,17 @@ function App() {
         setTasks(response.data);
     };
 
+    // const addTask = async () => {
+    //     await axios.post(API_URL, { title, description });
+    //     fetchTasks();
+    // };
     const addTask = async () => {
-        await axios.post(API_URL, { title, description });
-        fetchTasks();
+        try {
+            await axios.post(API_URL, { title, description });
+            fetchTasks();
+        } catch (error) {
+            console.error("Error adding task:", error);
+        }
     };
 
     const markDone = async (id) => {
